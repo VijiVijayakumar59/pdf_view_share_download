@@ -3,6 +3,7 @@ import 'package:pdfview/presentation/screens/pdf_screen.dart';
 
 void main() {
   runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
 }
 
 class MyApp extends StatelessWidget {

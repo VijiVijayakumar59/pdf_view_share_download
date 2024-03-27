@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
+import 'package:flutter_media_downloader/flutter_media_downloader.dart';
 import 'package:pdfview/presentation/widgets/constant_height_widget.dart';
-import 'package:pdfview/presentation/widgets/downloading_widget.dart';
 import 'package:pdfview/presentation/widgets/icon_widget.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -14,6 +14,13 @@ class PdfScreen extends StatefulWidget {
 }
 
 class _PdfScreenState extends State<PdfScreen> {
+  final _flutterMediaDownloaderPlugin = MediaDownload();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -71,10 +78,10 @@ class _PdfScreenState extends State<PdfScreen> {
                     IconWidget(
                       icon: Icons.file_download_outlined,
                       onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) =>
-                              DownloadingWidget(), // Show DownloadingWidget as a dialog
+                        _flutterMediaDownloaderPlugin.downloadMedia
+                        (
+                          context,
+                          "https://paytym.net/storage/pdfs/EMP18_PS_22-09-2023.pdf",
                         );
                       },
                     ),

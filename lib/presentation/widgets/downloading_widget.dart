@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -15,24 +15,31 @@ class DownloadingWidget extends StatefulWidget {
 class _DownloadingWidgetState extends State<DownloadingWidget> {
   Dio dio = Dio();
   double progress = 0.0;
-  void startDownloadin() async {
-    const String url =
-        "https://paytym.net/storage/pdfs/EMP18_PS_22-09-2023.pdf";
-    const String fileName = "PDF.jpg";
-    String path = await getFilePath(fileName);
-    await dio.download(
-      url,
-      path,
-      onReceiveProgress: (receivedBytes, totalBytes) {
-        setState(() {
-          progress = receivedBytes / totalBytes;
-        });
-        print(progress);
-      },
-      deleteOnError: true,
-    ).then((value) => {
-          Navigator.pop(context),
-        });
+
+  void startDownloading() async {
+    try {
+      const String url =
+          "https://paytym.net/storage/pdfs/EMP18_PS_22-09-2023.pdf";
+      const String fileName = "PDF.pdf";
+      String path = await getFilePath(fileName);
+      log(path.toString());
+
+      await dio.download(
+        url,
+        path,
+        onReceiveProgress: (receivedBytes, totalBytes) {
+          setState(() {
+            progress = receivedBytes / totalBytes;
+          });
+          print(progress);
+        },
+        deleteOnError: true,
+      ).then((value) {
+        Navigator.pop(context);
+      });
+    } catch (e) {
+      print('Error downloading: $e');
+    }
   }
 
   Future<String> getFilePath(String filename) async {
@@ -43,7 +50,7 @@ class _DownloadingWidgetState extends State<DownloadingWidget> {
   @override
   void initState() {
     super.initState();
-    startDownloadin();
+    startDownloading(); // Corrected method name
   }
 
   @override
