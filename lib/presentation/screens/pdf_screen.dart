@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:flutter_media_downloader/flutter_media_downloader.dart';
 import 'package:pdfview/presentation/widgets/constant_height_widget.dart';
@@ -32,8 +32,10 @@ class _PdfScreenState extends State<PdfScreen> {
           title: const Center(
             child: Text(
               "PDF View",
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
@@ -72,14 +74,14 @@ class _PdfScreenState extends State<PdfScreen> {
                       icon: Icons.share_outlined,
                       onPressed: () {
                         Share.share(
-                            'Check out this PDF: https://paytym.net/storage/pdfs/EMP18_PS_22-09-2023.pdf');
+                          'Check out this PDF: https://paytym.net/storage/pdfs/EMP18_PS_22-09-2023.pdf',
+                        );
                       },
                     ),
                     IconWidget(
                       icon: Icons.file_download_outlined,
-                      onPressed: () {
-                        _flutterMediaDownloaderPlugin.downloadMedia
-                        (
+                      onPressed: () async {
+                        _flutterMediaDownloaderPlugin.downloadMedia(
                           context,
                           "https://paytym.net/storage/pdfs/EMP18_PS_22-09-2023.pdf",
                         );
@@ -87,7 +89,7 @@ class _PdfScreenState extends State<PdfScreen> {
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
